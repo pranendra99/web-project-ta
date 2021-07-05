@@ -21,69 +21,6 @@ echo view('_partials/header', $data);
         </div>
     </div>
 
-<!-- SELECT2 EXAMPLE -->
-<section class="content">
-      <div class="container-fluid">
-        <div class="card card-default card-primary collapsed-card">
-          <div class="card-header">
-            <h3 class="card-title">Tambah Data</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
-            </div>
-            
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-              <form id="addLaporan" method="POST" action="">
-                <div class="form-group">
-                  <label for="tanggal">Tanggal</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                    </div>
-                    <input id="tanggal" name="tanggal" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required autofocus>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label for="lampu_nyala">Lampu Nyala</label>
-                    <input type="text" name="lampu_nyala" class="form-control" id="lampu_nyala" placeholder="Lampu Nyala" required autofocus>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-              <div class="col-md-6">
-                <div class="form-group">
-                    <label for="lampu_mati">Lampu Mati</label>
-                        <input type="text" name="lampu_mati" class="form-control" id="lampu_mati" placeholder="Lampu Mati" required autofocus>
-                    </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label for="lampu_baru">Lampu Baru</label>
-                        <input type="text" name="lampu_baru" class="form-control" id="lampu_baru" placeholder="Lampu Baru" required autofocus>
-                    </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-              </form>
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- /.card-body -->
-            <div class="card-footer">
-                <button id="submitLaporan" type="submit button" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-        <!-- /.card -->
-    </div>
-</section>
-
-
 <!-- TABLE -->
     <div class="content">
         <div class="container-fluid">
@@ -93,7 +30,7 @@ echo view('_partials/header', $data);
                         <div class="card-header">
                             <h3 class="card-title">Data Laporan</h3>
 
-                            <div class="card-tools">
+                            <!-- <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
                                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
@@ -103,7 +40,7 @@ echo view('_partials/header', $data);
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -111,10 +48,10 @@ echo view('_partials/header', $data);
                   <thead>
                     <tr>
                       <th>Tanggal</th>
-                      <th>Lampu Nyala</th>
-                      <th>Lampu Mati</th>
-                      <th>Lampu Baru</th>
-                      
+                      <th>Lampu 1</th>
+                      <th>Lampu 2</th>
+                      <th>Lampu 3</th>
+                      <th>Lampu 4</th>
                     </tr>
                   </thead>
                   <tbody id="tbody">
@@ -133,57 +70,6 @@ echo view('_partials/header', $data);
     </div>
 </div>
 
-
-<!-- Update Model -->
-<form action="" method="POST" class="users-update-record-model form-horizontal">
-    <div id="update-modal" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="width:55%;">
-            <div class="modal-content" style="overflow: hidden;">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="custom-width-modalLabel">Update</h4>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">×
-                    </button>
-                </div>
-                <div class="modal-body" id="updateBody">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Close
-                    </button>
-                    <button type="button" class="btn btn-success updateLaporan">Update
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
-<!-- Delete Model -->
-<form action="" method="POST" class="users-remove-record-model">
-    <div id="remove-modal" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
-         aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-dialog-centered" style="width:55%;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="custom-width-modalLabel">Delete</h4>
-                    <button type="button" class="close remove-data-from-delete-form" data-dismiss="modal" aria-hidden="true">×
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data laporan ini?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect remove-data-from-delete-form" data-dismiss="modal">Close
-                    </button>
-                    <button type="button" class="btn btn-danger waves-effect waves-light deleteLaporan">Delete
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 
 <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
@@ -206,19 +92,18 @@ echo view('_partials/header', $data);
     var lastIndex = 0;
 
     // Get Data
-    firebase.database().ref('laporan/data_laporan/').on('value', function (snapshot) {
+    firebase.database().ref('lampu/cek/').on('value', function (snapshot) {
         var value = snapshot.val();
         var htmls = [];
         $.each(value, function (index, value) {
             if (value) {
                 htmls.push('<tr>\
                 <td>' + value.tanggal + '</td>\
-                <td>' + value.lampu_nyala + '</td>\
-                <td>' + value.lampu_mati + '</td>\
-                <td>' + value.lampu_baru + '</td>\
-                <td><button data-toggle="modal" data-target="#update-modal" class="btn btn-info updateLaporan" data-id="' + index + '">Update</button>\
-                <button data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeLaporan" data-id="' + index + '">Delete</button></td>\
-            </tr>');
+                <td>' + value.lampu1 + '</td>\
+                <td>' + value.lampu2 + '</td>\
+                <td>' + value.lampu3 + '</td>\
+                <td>' + value.lampu4 + '</td>\
+             </tr>');
             }
             lastIndex = index;
         });

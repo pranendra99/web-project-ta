@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Lampu::index');
 $routes->get('/datalaporan', 'Lampu::datalaporan');
+$routes->get('/laporanlampu', 'Lampu::laporanlampu');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

@@ -29,6 +29,11 @@
     <link rel="stylesheet" href="<?php echo base_url('public/assets/plugins'); ?>/dropzone/min/dropzone.min.css">
     <!-- Toastr -->
     <link rel="stylesheet" href="<?php echo base_url('public/assets/plugins'); ?>/toastr/toastr.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/plugins'); ?>/fontawesome-free/css/all.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/plugins'); ?>/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/plugins'); ?>/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/plugins'); ?>/datatables-buttons/css/buttons.bootstrap4.min.css">
 
     <script type="text/javascript"  id="debugbar_dynamic_script"></script>
     <script type="text/javascript"  id="debugbar_loader" data-time="1585277113" src="<?php echo base_url('themes/plugins/'); ?>/index.php?debugbar"></script>

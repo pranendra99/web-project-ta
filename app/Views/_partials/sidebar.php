@@ -23,9 +23,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo base_url('laporanlampu'); ?>" class="nav-link">
+                    <a href="<?php echo base_url('ceklampu'); ?>" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>
-                        <p>Laporan Lampu</p>
+                        <p>Cek Lampu</p>
                     </a>
                 </li>
                 <li class="nav-item">

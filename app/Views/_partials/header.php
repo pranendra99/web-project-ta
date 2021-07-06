@@ -38,7 +38,7 @@
     <script type="text/javascript"  id="debugbar_dynamic_script"></script>
     <script type="text/javascript"  id="debugbar_loader" data-time="1585277113" src="<?php echo base_url('themes/plugins/'); ?>/index.php?debugbar"></script>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">

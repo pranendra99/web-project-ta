@@ -106,15 +106,15 @@ echo view('_partials/header', $data);
                             </div>
                         </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+              <div class="card-body table-responsive p-0" style="height: 350px;">
+                <table class="table table-hover text-nowrap table-head-fixed">
                   <thead>
                     <tr>
                       <th>Tanggal</th>
                       <th>Lampu Nyala</th>
                       <th>Lampu Mati</th>
                       <th>Lampu Baru</th>
-                      
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody id="tbody">

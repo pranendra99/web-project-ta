@@ -1,5 +1,5 @@
 <?php 
-$data['title'] = "Data Laporan";
+$data['title'] = "Cek Lampu";
 echo view('_partials/header', $data); 
 ?>
 <?php echo view('_partials/sidebar'); ?>
@@ -9,12 +9,12 @@ echo view('_partials/header', $data);
         <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Data Laporan</h1>
+                <h1 class="m-0 text-dark">Cek Lampu</h1>
             </div>
             <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Data Laporan</li>
+                <li class="breadcrumb-item active">Cek Lampu</li>
             </ol>
             </div>
         </div>
@@ -25,10 +25,52 @@ echo view('_partials/header', $data);
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+            <!-- CEK LAMPU -->
+    
+            <div class="col-md-4">
+                <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Realtime</h3>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+    <!--                     
+                            <tr>
+                                <td>Tanggal</td>
+                            </tr>
+                            <tr>
+                                <td>Lampu 1</td>
+                            </tr>
+                            <tr>
+                                <td>Lampu 2</td>
+                            </tr>
+                            <tr>
+                                <td>Lampu 3</td>
+                            </tr>
+                            <tr>
+                                <td>Lampu 4</td>
+                            </tr>
+                        -->
+                        <tbody id="tbody2">
+
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+       
+                <div class="col-8">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Data Laporan</h3>
+                            <h3 class="card-title">History</h3>
+                            <!-- <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+                            </div> -->
 
                             <!-- <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -108,6 +150,39 @@ echo view('_partials/header', $data);
             lastIndex = index;
         });
         $('#tbody').html(htmls);
+        $("#submitLaporan").removeClass('disabled');
+    });
+
+    // Get Data
+    firebase.database().ref('lampu/cek/').orderByChild('tanggal').limitToLast(1).on('value', function (snapshot) {
+        var value = snapshot.val();
+        var htmls = [];
+        $.each(value, function (index, value) {
+            if (value) {
+                htmls.push('<tr>\
+                <th>Tanggal</th>\
+                <td>' + value.tanggal + '</td>\
+                </tr>\
+                <tr>\
+                <th>Lampu 1</th>\
+                <td>' + value.lampu1 + '</td>\
+                </tr>\
+                <tr>\
+                <th>Lampu 2</th>\
+                <td>' + value.lampu2 + '</td>\
+                </tr>\
+                <tr>\
+                <th>Lampu 3</th>\
+                <td>' + value.lampu3 + '</td>\
+                </tr>\
+                <tr>\
+                <th>Lampu 4</th>\
+                <td>' + value.lampu4 + '</td>\
+             </tr>');
+            }
+            lastIndex = index;
+        });
+        $('#tbody2').html(htmls);
         $("#submitLaporan").removeClass('disabled');
     });
 

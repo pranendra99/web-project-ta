@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title><?= $title ?> - Kontrol Lampu</title>
+    <link rel="icon" href="<?php echo base_url('public/assets/dist'); ?>/img/logo.ico" type="image/x-icon"/>
     <style type="text/css"  id="debugbar_dynamic_style"></style>
     <link rel="stylesheet" href="<?php echo base_url('public/assets/dist'); ?>/css/adminlte.min.css">
     <link rel="stylesheet" href="<?php echo base_url('public/assets/plugins'); ?>/fontawesome-free/css/all.min.css">

@@ -27,7 +27,7 @@ echo view('_partials/header', $data);
             <div class="row">
             <!-- CEK LAMPU -->
     
-            <div class="col-md-4">
+            
                 <div class="card card-success">
                 <div class="card-header">
                     <h3 class="card-title">Realtime</h3>
@@ -60,10 +60,9 @@ echo view('_partials/header', $data);
                 <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-            </div>
-            <!-- /.col -->
+            
        
-                <div class="col-8">
+                
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">History</h3>
@@ -104,8 +103,7 @@ echo view('_partials/header', $data);
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
-          </div>
-          <!-- col-12 -->
+          
         </div>
         <!-- /.row -->
         </div>

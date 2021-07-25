@@ -94,7 +94,7 @@ echo view('_partials/header', $data);
                             <h3 class="card-title">Data Laporan</h3>
 
                             <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
+                                <!-- <div class="input-group input-group-sm" style="width: 150px;">
                                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
                                     <div class="input-group-append">
@@ -102,7 +102,7 @@ echo view('_partials/header', $data);
                                         <i class="fas fa-search"></i>
                                         </button>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
               <!-- /.card-header -->

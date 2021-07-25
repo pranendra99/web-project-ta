@@ -25,7 +25,7 @@ echo view('_partials/header', $data);
         <div class="container-fluid">
             <div class="row">
                 <div class="col-4">
-                    <div class="card card-success" style="height: 150px;">
+                    <div class="card card-success">
                         <div class="card-header">
                             <h5 class="m-0">Welcome!</h5>
                         </div>

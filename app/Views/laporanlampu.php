@@ -84,8 +84,8 @@ echo view('_partials/header', $data);
                             </div> -->
                         </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+              <div class="card-body table-responsive p-0" style="height: 500px;">
+                <table class="table table-hover text-nowrap table-head-fixed">
                   <thead>
                     <tr>
                       <th>Tanggal</th>

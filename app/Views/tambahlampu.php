@@ -39,36 +39,13 @@ echo view('_partials/header', $data);
             <div class="row">
               <div class="col-md-6">
               <form id="addLaporan" method="POST" action="">
+                
                 <div class="form-group">
-                  <label for="tanggal">Tanggal</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                    </div>
-                    <input id="tanggal" name="tanggal" type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required autofocus>
-                  </div>
-                  <!-- /.input group -->
+                    <label for="tambah_lampu">Tambah Lampu</label>
+                    <input type="number" name="tambah_lampu" class="form-control" id="tambah_lampu" placeholder="Tambah Lampu" required autofocus>
                 </div>
                 <!-- /.form-group -->
-                <div class="form-group">
-                    <label for="lampu_nyala">Lampu Nyala</label>
-                    <input type="text" name="lampu_nyala" class="form-control" id="lampu_nyala" placeholder="Lampu Nyala" required autofocus>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-              <div class="col-md-6">
-                <div class="form-group">
-                    <label for="lampu_mati">Lampu Mati</label>
-                        <input type="text" name="lampu_mati" class="form-control" id="lampu_mati" placeholder="Lampu Mati" required autofocus>
-                    </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label for="lampu_baru">Lampu Baru</label>
-                        <input type="text" name="lampu_baru" class="form-control" id="lampu_baru" placeholder="Lampu Baru" required autofocus>
-                    </div>
-                <!-- /.form-group -->
-              </div>
+              
               <!-- /.col -->
               </form>
             </div>
@@ -213,7 +190,7 @@ echo view('_partials/header', $data);
             if (value) {
                 htmls.push('<tr>\
                 <td>' + value.tanggal + '</td>\
-                <td>' + value.lampu_nyala + '</td>\
+                <td>' + value.tambah_lampu + '</td>\
                 <td>' + value.lampu_mati + '</td>\
                 <td>' + value.lampu_baru + '</td>\
                 <td><button data-toggle="modal" data-target="#update-modal" class="btn btn-info updateLaporan" data-id="' + index + '">Update</button>\
@@ -229,17 +206,12 @@ echo view('_partials/header', $data);
     // Add Data
     $('#submitLaporan').on('click', function () {
         var values = $("#addLaporan").serializeArray();
-        var tanggal = values[0].value;
-        var lampu_nyala = values[1].value;
-        var lampu_mati = values[2].value;
-        var lampu_baru = values[3].value;
+        var tambah_lampu = values[0].value;
+        var userID = lastIndex + 1;
         //var userID = lastIndex + 1;
 
-        firebase.database().ref('laporan/data_laporan/').push({
-            tanggal: tanggal,
-            lampu_nyala: lampu_nyala,
-            lampu_mati: lampu_mati,
-            lampu_baru: lampu_baru,
+        firebase.database().ref('lampu/tambah_lampu/' + userID).set({
+            tambah_lampu: tambah_lampu,
         });
 
         // Reassign lastID value
@@ -265,7 +237,7 @@ echo view('_partials/header', $data);
             <div class="form-group">\
                 <label for="edit_lampu_nyala" class="col-md-12 col-form-label">Lampu Nyala</label>\
                 <div class="col-md-12">\
-                    <input id="edit_lampu_nyala" type="text" class="form-control" name="lampu_nyala" value="' + values.lampu_nyala + '" placeholder="Lampu Nyala" required autofocus>\
+                    <input id="edit_lampu_nyala" type="text" class="form-control" name="tambah_lampu" value="' + values.tambah_lampu + '" placeholder="Lampu Nyala" required autofocus>\
                 </div>\
             </div>\
             <div class="form-group">\
@@ -289,7 +261,7 @@ echo view('_partials/header', $data);
         var values = $(".users-update-record-model").serializeArray();
         var postData = {
             tanggal: values[0].value,
-            lampu_nyala: values[1].value,
+            tambah_lampu: values[1].value,
             lampu_mati: values[2].value,
             lampu_baru: values[3].value,
         };

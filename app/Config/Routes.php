@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Lampu::index');
 $routes->get('/datalaporan', 'Lampu::datalaporan');
 $routes->get('/ceklampu', 'Lampu::laporanlampu');
+$routes->get('/tambahlampu', 'Lampu::tambahlampu');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

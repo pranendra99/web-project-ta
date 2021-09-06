@@ -16,4 +16,9 @@ class Lampu extends BaseController
 	{
 		return view('laporanlampu');
 	}
+
+	public function tambahlampu()
+	{
+		return view('tambahlampu');
+	}
 }

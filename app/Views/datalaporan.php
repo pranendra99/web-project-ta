@@ -4,6 +4,15 @@ echo view('_partials/header', $data);
 ?>
 <?php echo view('_partials/sidebar'); ?>
 
+<style type="text/css">
+    .penomoran {
+      counter-reset: serial-number;  /* Atur penomoran ke 0 */
+    }
+    .penomoran td:first-child:before {
+      counter-increment: serial-number;  /* Kenaikan penomoran */
+      content: counter(serial-number);  /* Tampilan counter */
+    }
+</style>
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
@@ -107,9 +116,10 @@ echo view('_partials/header', $data);
                         </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0" style="height: 350px;">
-                <table class="table table-hover text-nowrap table-head-fixed">
+                <table class="table table-hover text-nowrap table-head-fixed penomoran">
                   <thead>
                     <tr>
+                      <th>No</th>
                       <th>Tanggal</th>
                       <th>Lampu Nyala</th>
                       <th>Lampu Mati</th>
@@ -205,6 +215,7 @@ echo view('_partials/header', $data);
 
     var lastIndex = 0;
 
+
     // Get Data
     firebase.database().ref('laporan/data_laporan/').on('value', function (snapshot) {
         var value = snapshot.val();
@@ -212,6 +223,7 @@ echo view('_partials/header', $data);
         $.each(value, function (index, value) {
             if (value) {
                 htmls.push('<tr>\
+                <td></td>\
                 <td>' + value.tanggal + '</td>\
                 <td>' + value.lampu_nyala + '</td>\
                 <td>' + value.lampu_mati + '</td>\
@@ -230,24 +242,27 @@ echo view('_partials/header', $data);
     $('#submitLaporan').on('click', function () {
         var values = $("#addLaporan").serializeArray();
         var tanggal = values[0].value;
+        var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
+        var date = new Date(tanggal).toLocaleDateString("id-ID", options);
         var lampu_nyala = values[1].value;
         var lampu_mati = values[2].value;
         var lampu_baru = values[3].value;
         //var userID = lastIndex + 1;
 
         firebase.database().ref('laporan/data_laporan/').push({
-            tanggal: tanggal,
+            tanggal: date,
             lampu_nyala: lampu_nyala,
             lampu_mati: lampu_mati,
             lampu_baru: lampu_baru,
         });
 
         // Reassign lastID value
-        lastIndex = userID;
+        // lastIndex = userID;
+
         $("#addLaporan input").val("");
         // menampilkan alert
         alert("Berhasil menambah data");
-        // toastr.success("Berhasil menambah data");
+        
     });
 
     // Update Data
@@ -256,12 +271,14 @@ echo view('_partials/header', $data);
         updateID = $(this).attr('data-id');
         firebase.database().ref('laporan/data_laporan/' + updateID).on('value', function (snapshot) {
             var values = snapshot.val();
+            // var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
+            // var date = new Date(values.tanggal).toLocaleDateString("en-US", options);
             var updateData = '<div class="form-group">\
-                <label for="edit_tanggal" class="col-md-12 col-form-label">Tanggal</label>\
-                <div class="col-md-12">\
-                    <input id="edi_tanggal" name="tanggal" type="date" value="' + values.tanggal + '" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required autofocus>\
-                </div>\
-            </div>\
+                 <label for="edit_tanggal" class="col-md-12 col-form-label">Tanggal</label>\
+                 <div class="col-md-12">\
+                     <input id="edit_tanggal" name="tanggal" type="date" value="' + values.tanggal + '" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required autofocus>\
+                 </div>\
+             </div>\
             <div class="form-group">\
                 <label for="edit_lampu_nyala" class="col-md-12 col-form-label">Lampu Nyala</label>\
                 <div class="col-md-12">\
@@ -285,10 +302,30 @@ echo view('_partials/header', $data);
         });
     });
 
+// <div class="form-group">\
+//                 <label for="edit_tanggal" class="col-md-12 col-form-label">Tanggal</label>\
+//                 <div class="col-md-12">\
+//                     <input id="edit_tanggal" name="tanggal" type="text" value="' + values.tanggal + '" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required autofocus>\
+//                 </div>\
+//             </div>\
+
+// <div class="form-group">\
+//                   <label>Date:</label>\
+//                     <div class="input-group date" id="reservationdate" data-target-input="nearest">\
+//                         <input type="text" id="edit_tanggal" name="tanggal" value="'+ values.tanggal +'" class="form-control datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask data-target="#reservationdate"/>\
+//                         <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">\
+//                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>\
+//                         </div>\
+//                     </div>\
+//                 </div>\
+
     $('.updateLaporan').on('click', function () {
         var values = $(".users-update-record-model").serializeArray();
+        var tanggal = values[0].value;
+        var options = {day: '2-digit', month: '2-digit', year: 'numeric'};
+        var date = new Date(tanggal).toLocaleDateString("id-ID", options);
         var postData = {
-            tanggal: values[0].value,
+            tanggal: date,
             lampu_nyala: values[1].value,
             lampu_mati: values[2].value,
             lampu_baru: values[3].value,
@@ -322,8 +359,8 @@ echo view('_partials/header', $data);
     $('.remove-data-from-delete-form').click(function () {
         $('body').find('.users-remove-record-model').find("input").remove();
     });
-</script>
 
+</script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 
 <?php echo view('_partials/footer'); ?>

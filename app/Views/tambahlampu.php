@@ -211,6 +211,8 @@ echo view('_partials/header', $data);
 
     // var lastIndex = 0;
 
+    
+
     // Get Data
     firebase.database().ref('data_lampu/lampu/').on('value', function (snapshot) {
         var value = snapshot.val();
@@ -227,12 +229,75 @@ echo view('_partials/header', $data);
                     <button data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeLaporan" data-id="' + index + '">Delete</button></td>\
             </tr>');
             }
-
+            
             // lastIndex = index;
         });
         
         $('#tbody').html(htmls);
         $("#submitLaporan").removeClass('disabled');
+    });
+
+    var lampuRef = database.ref('jmlRelay');
+    lampuRef.on('value', function(snapshot) {
+        var rel = snapshot.val();
+        var tabel = $('#tbody tr').length;
+        
+        if (tabel>=rel) {
+            $('#submitLaporan').on('click', function () {
+                $("#addLaporan input").val("");
+                alert("Tidak dapat menambahkan data, karena jumlah relay hanya "+ rel);
+                //reload page
+                location.reload();
+                return false;
+            });
+        }else{
+            // Add Data
+            $('#submitLaporan').on('click', function () {
+                var values = $("#addLaporan").serializeArray();
+                //var lampu = values[0].value;
+                var tanggal = values[0].value;
+                var namalampu = values[1].value;
+                var kondisi = values[2].value;
+                // var nilai = values[1].value;
+                // var nomer = nom + 1;
+
+
+                // document.getElementById('kondisi').addEventListener('change', function (e) {
+                //   if (e.target.value === "Nyala") {
+                //     var nilai = 0;
+                //   }else if(e.target.value === "Mati") {
+                //     var nilai = 1;
+                //   }
+                // });
+
+                // nil = nilai;
+
+                if(document.getElementById('kondisi').value == "Nyala") {
+                    var nilai = 0;
+                }else if(document.getElementById('kondisi').value == "Mati"){
+                    var nilai = 1;
+                }
+
+                firebase.database().ref('data_lampu/lampu/').push({
+                    tanggal: tanggal, 
+                    namalampu: namalampu,
+                    kondisi: kondisi,
+                    nilai: nilai,
+                });
+
+                // Reassign lastID value
+                // lastIndex = userID;
+                $("#addLaporan input").val("");
+                // menampilkan alert
+                alert("Berhasil menambah data");
+                //reload page
+                location.reload();
+                return false;
+            });
+        }
+        // snapshot.forEach(function(childSnapshot) {
+        //   var childData = childSnapshot.val();
+        // });
     });
 
 // <td>' + value.no + '</td>\
@@ -255,49 +320,7 @@ echo view('_partials/header', $data);
     //     alert("Berhasil menghapus data");        
     // });
 
-    // Add Data
-    $('#submitLaporan').on('click', function () {
-        var values = $("#addLaporan").serializeArray();
-        //var lampu = values[0].value;
-        var tanggal = values[0].value;
-        var namalampu = values[1].value;
-        var kondisi = values[2].value;
-        // var nilai = values[1].value;
-        // var nomer = nom + 1;
-
-
-        // document.getElementById('kondisi').addEventListener('change', function (e) {
-        //   if (e.target.value === "Nyala") {
-        //     var nilai = 0;
-        //   }else if(e.target.value === "Mati") {
-        //     var nilai = 1;
-        //   }
-        // });
-
-        // nil = nilai;
-
-        if(document.getElementById('kondisi').value == "Nyala") {
-            var nilai = 0;
-        }else if(document.getElementById('kondisi').value == "Mati"){
-            var nilai = 1;
-        }
-
-        firebase.database().ref('data_lampu/lampu/').push({
-            tanggal: tanggal, 
-            namalampu: namalampu,
-            kondisi: kondisi,
-            nilai: nilai,
-        });
-
-        // Reassign lastID value
-        // lastIndex = userID;
-        $("#addLaporan input").val("");
-        // menampilkan alert
-        alert("Berhasil menambah data");
-        //reload page
-        location.reload();
-        return false;
-    });
+    
 
     // Update Data
     var updateID = 0;

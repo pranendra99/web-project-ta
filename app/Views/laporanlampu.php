@@ -3,7 +3,15 @@ $data['title'] = "Cek Lampu";
 echo view('_partials/header', $data); 
 ?>
 <?php echo view('_partials/sidebar'); ?>
-
+<style type="text/css">
+    .penomoran {
+      counter-reset: serial-number;  /* Atur penomoran ke 0 */
+    }
+    .penomoran td:first-child:after {
+      counter-increment: serial-number;  /* Kenaikan penomoran */
+      content: counter(serial-number);  /* Tampilan counter */
+    }
+</style>
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
@@ -27,7 +35,7 @@ echo view('_partials/header', $data);
             <div class="row">
             <!-- CEK LAMPU -->
     
-            
+                <div class="col-md-6">
                 <div class="card card-success">
                 <div class="card-header">
                     <h3 class="card-title">Realtime</h3>
@@ -60,8 +68,43 @@ echo view('_partials/header', $data);
                 <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
+                </div>
             
-       
+            <!--Info-->
+            <div class="col-md-4">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Info</h3>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap penomoran">
+    <!--                     
+                            <tr>
+                                <td>Tanggal</td>
+                            </tr>
+                            <tr>
+                                <td>Lampu 1</td>
+                            </tr>
+                            <tr>
+                                <td>Lampu 2</td>
+                            </tr>
+                            <tr>
+                                <td>Lampu 3</td>
+                            </tr>
+                            <tr>
+                                <td>Lampu 4</td>
+                            </tr>
+                        -->
+                        <tbody id="tbody3">
+
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                </div>
                 
                     <div class="card card-primary">
                         <div class="card-header">
@@ -157,6 +200,24 @@ echo view('_partials/header', $data);
     var lastIndex = 0;
 
     // Get Data
+    firebase.database().ref('data_lampu/lampu/').on('value', function (snapshot) {
+        var value = snapshot.val();
+        var htmls = [];
+        
+        $.each(value, function (index, value) {
+            if (value) {
+                htmls.push('<tr>\
+                <td>Lampu </td>\
+                <td>untuk ' + value.namalampu + '</td>\
+             </tr>');
+            }
+            lastIndex = index;
+        });
+        $('#tbody3').html(htmls);
+        $("#submitLaporan").removeClass('disabled');
+    });
+    
+    // Get Data
     firebase.database().ref('lampu/cek/').on('value', function (snapshot) {
         var value = snapshot.val();
         var htmls = [];
@@ -201,10 +262,7 @@ echo view('_partials/header', $data);
                 <tr>\
                 <th>Lampu 4</th>\
                 <td>' + value.lampu4 + '</td>\
-                </tr><tr>\
-                <th><button type="button" data-toggle="modal" data-target="#update-modal" class="btn btn-success LampuTambah"><i class="fas fa-plus"></i> Tambah Lampu</button></th>\
-                <td></td>\
-             </tr>');
+                </tr>');
             }
             // akhirIndex = indexx;
             lastIndex = index;
